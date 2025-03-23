@@ -19,6 +19,8 @@ li {
     --light: #f9f9f9;
     --blue: #3c91e6;
     --light-blue: #CFE8FF;
+    --grey:#eeeeee;
+    --dark-grey: #AAAAAA;
     --dark: #342E37;
     --red: #DB504A;
     --yellow: #FFCE26;
@@ -39,7 +41,35 @@ body{
     height: 100%;
     width: 280px;
     background: var(--light);
-    transition: all 0.4s;
     z-index: 1000;
+    font-family: var(--lato);
+}
+
+#siderbar .brand{
+    font-size: 24px;
+    font-weight: 700;
+    height: 56px;
+    display: flex;
+    align-items: center;
+
+}
+
+#sidebar .brand .bx{
+    min-width: 60px;
+    margin-left: 20px;
+    justify-content: center;
+}
+
+#sidebar .brand .side-menu{
+    width:100%;
+    margin-top: 48px;
+}
+
+#sidebar .brand .side-menu li{
+    height: 48px;
+    background: var(--grey);
+    margin-left: 6px;
+    border-radius: 48px;
+    
 }
 /* sidebar */
