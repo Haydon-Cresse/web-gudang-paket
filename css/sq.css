@@ -1,9 +1,45 @@
-.navbar-custom {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-.navbar-brand img {
-    width: 15%; /* Adjust the width as needed */
+
+a{
+    text-decoration: none;
 }
-.navbar-nav .nav-link:hover {
-    color: #007bff; /* Change the color on hover */
+
+li {
+    list-style: none;
 }
+
+:root{
+    --poppins: 'Poppins', sans-serif;
+    --lato: 'Lato', sans-serif;
+
+    --light: #f9f9f9;
+    --blue: #3c91e6;
+    --light-blue: #CFE8FF;
+    --dark: #342E37;
+    --red: #DB504A;
+    --yellow: #FFCE26;
+    --light-yellow: #FFF2C6;
+    --orange: #FD7238;
+    --light-orange: #FFE0D3;
+}
+
+body{
+    background:var(--grey);
+}
+
+/* sidebar */
+#sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px;
+    background: var(--light);
+    transition: all 0.4s;
+    z-index: 1000;
+}
+/* sidebar */
