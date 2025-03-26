@@ -24,7 +24,7 @@ li {
     --dark: #342E37;
     --red: #DB504A;
     --yellow: #FFCE26;
-    --light-yellow: #FFF2C6;
+    --light-yellow: #fff2c6;
     --orange: #FD7238;
     --light-orange: #FFE0D3;
 }
@@ -459,6 +459,69 @@ body{
 	background: var(--orange);
 }
 
+.package-form {
+    margin-top: 20px;
+}
+
+.package-form form {
+    display: flex;
+    gap: 10px;
+}
+
+.package-form input, .package-form select, .package-form button {
+    padding: 10px;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+}
+
+.package-form button {
+    background-color: var(--blue);
+    color: var(--dark-blue);
+    border: none;
+    cursor: pointer;
+}
+
+.package-form button:hover {
+    background-color: var(--dark-blue);
+}
+
+.table-data .order table th, .table-data .order table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.table-data .order table th {
+    background-color: var(--light);
+}
+
+.table-data .order table td .status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: var(--light);
+}
+
+.table-data .order table td .status.completed {
+    background-color: var(--blue);
+}
+
+.table-data .order table td .status.pending {
+    background-color: var(--orange);
+}
+
+.table-data .order table td .status.process {
+    background-color: var(--yellow);
+}
+
+.table-data .order table td button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.table-data .order table td button:hover {
+    opacity: 0.8;
+}
 
 #content main .table-data .todo {
 	flex-grow: 1;
