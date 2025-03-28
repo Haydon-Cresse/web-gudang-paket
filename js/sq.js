@@ -80,34 +80,39 @@ function addPackage() {
     const luggage = document.getElementById('luggage').value;
 
     if (packageId && luggage) {
-        const packageTable = document.getElementById('packageTable').getElementsByTagName('tbody')[0];
-        const newRow = packageTable.insertRow();
+        if (confirm("Are you sure you want to add this package?")) {
+            const packageTable = document.getElementById('packageTable').getElementsByTagName('tbody')[0];
+            const newRow = packageTable.insertRow();
 
-        const cell1 = newRow.insertCell(0);
-        const cell2 = newRow.insertCell(1);
-        const cell3 = newRow.insertCell(2);
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
 
-        cell1.textContent = packageId;
-        cell2.textContent = luggage;
-        cell3.innerHTML = `<button onclick="editPackage(this)">Edit</button> <button onclick="removePackage(this)">Remove</button>`;
+            cell1.textContent = packageId;
+            cell2.textContent = luggage;
+            cell3.innerHTML = `<button onclick="editPackage(this)">Edit</button> <button onclick="removePackage(this)">Remove</button>`;
 
-        // Add package to the dropdown in the order form
-        const packageSelect = document.getElementById('packageSelect');
-        const option = document.createElement('option');
-        option.value = packageId;
-        option.textContent = `${packageId} - ${luggage}`;
-        packageSelect.appendChild(option);
+            // Add package to the dropdown in the order form
+            const packageSelect = document.getElementById('packageSelect');
+            const option = document.createElement('option');
+            option.value = packageId;
+            option.textContent = `${packageId} - ${luggage}`;
+            packageSelect.appendChild(option);
 
-        document.getElementById('packageForm').reset();
+            document.getElementById('packageForm').reset();
+            alert("Package added successfully!");
+        }
     } else {
         alert("Please fill in all fields.");
     }
 }
 
 function editPackage(button) {
-    editPackageRow = button.parentElement.parentElement;
-    document.getElementById('packageId').value = editPackageRow.cells[0].textContent;
-    document.getElementById('luggage').value = editPackageRow.cells[1].textContent;
+    if (confirm("Are you sure you want to edit this package?")) {
+        editPackageRow = button.parentElement.parentElement;
+        document.getElementById('packageId').value = editPackageRow.cells[0].textContent;
+        document.getElementById('luggage').value = editPackageRow.cells[1].textContent;
+    }
 }
 
 function updatePackage() {
@@ -115,44 +120,50 @@ function updatePackage() {
     const luggage = document.getElementById('luggage').value;
 
     if (packageId && luggage) {
-        editPackageRow.cells[0].textContent = packageId;
-        editPackageRow.cells[1].textContent = luggage;
+        if (confirm("Are you sure you want to save the changes to this package?")) {
+            editPackageRow.cells[0].textContent = packageId;
+            editPackageRow.cells[1].textContent = luggage;
 
-        // Update the dropdown in the order form
-        const packageSelect = document.getElementById('packageSelect');
-        const options = packageSelect.options;
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].value === editPackageRow.cells[0].textContent) {
-                options[i].textContent = `${packageId} - ${luggage}`;
-                break;
+            // Update the dropdown in the order form
+            const packageSelect = document.getElementById('packageSelect');
+            const options = packageSelect.options;
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].value === editPackageRow.cells[0].textContent) {
+                    options[i].textContent = `${packageId} - ${luggage}`;
+                    break;
+                }
             }
-        }
 
-        document.getElementById('packageForm').reset();
-        editPackageRow = null;
+            document.getElementById('packageForm').reset();
+            editPackageRow = null;
+            alert("Package updated successfully!");
+        }
     } else {
         alert("Please fill in all fields.");
     }
 }
 
 function removePackage(button) {
-    const row = button.parentElement.parentElement;
-    const packageId = row.cells[0].textContent;
+    if (confirm("Are you sure you want to remove this package?")) {
+        const row = button.parentElement.parentElement;
+        const packageId = row.cells[0].textContent;
 
-    // Remove from the dropdown in the order form
-    const packageSelect = document.getElementById('packageSelect');
-    const options = packageSelect.options;
-    for (let i = 0; i < options.length; i++) {
-        if (options[i].value === packageId) {
-            packageSelect.remove(i);
-            break;
+        // Remove from the dropdown in the order form
+        const packageSelect = document.getElementById('packageSelect');
+        const options = packageSelect.options;
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value === packageId) {
+                packageSelect.remove(i);
+                break;
+            }
         }
-    }
 
-    row.remove();
-    if (editPackageRow === row) {
-        document.getElementById('packageForm').reset();
-        editPackageRow = null;
+        row.remove();
+        if (editPackageRow === row) {
+            document.getElementById('packageForm').reset();
+            editPackageRow = null;
+        }
+        alert("Package removed successfully!");
     }
 }
 
