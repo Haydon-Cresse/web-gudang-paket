@@ -54,46 +54,49 @@ window.addEventListener('resize', function () {
 })
 
 
+let editPackageRow = null;
+let editOrderRow = null;
 
-const switchMode = document.getElementById('switch-mode');
-
-switchMode.addEventListener('change', function () {
-	if(this.checked) {
-		document.body.classList.add('dark');
-	} else {
-		document.body.classList.remove('dark');
-	}
-})
-
-let editRow = null;
-
-document.getElementById('packageForm').addEventListener('submit', function(e) {
+document.getElementById('packageForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    if (editRow) {
+    if (editPackageRow) {
         updatePackage();
     } else {
         addPackage();
     }
 });
 
-function addPackage() {
-    const userName = document.getElementById('userName').value;
-    const orderDate = document.getElementById('orderDate').value;
-    const orderStatus = document.getElementById('orderStatus').value;
+document.getElementById('orderForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (editOrderRow) {
+        updateOrder();
+    } else {
+        addOrder();
+    }
+});
 
-    if (userName && orderDate && orderStatus) {
-        const table = document.getElementById('orderTable').getElementsByTagName('tbody')[0];
-        const newRow = table.insertRow();
+function addPackage() {
+    const packageId = document.getElementById('packageId').value;
+    const luggage = document.getElementById('luggage').value;
+
+    if (packageId && luggage) {
+        const packageTable = document.getElementById('packageTable').getElementsByTagName('tbody')[0];
+        const newRow = packageTable.insertRow();
 
         const cell1 = newRow.insertCell(0);
         const cell2 = newRow.insertCell(1);
         const cell3 = newRow.insertCell(2);
-        const cell4 = newRow.insertCell(3);
 
-        cell1.textContent = userName;
-        cell2.textContent = orderDate;
-        cell3.innerHTML = `<span class="status ${orderStatus.toLowerCase()}">${orderStatus}</span>`;
-        cell4.innerHTML = `<button onclick="editPackage(this)">Edit</button> <button onclick="removePackage(this)">Remove</button>`;
+        cell1.textContent = packageId;
+        cell2.textContent = luggage;
+        cell3.innerHTML = `<button onclick="editPackage(this)">Edit</button> <button onclick="removePackage(this)">Remove</button>`;
+
+        // Add package to the dropdown in the order form
+        const packageSelect = document.getElementById('packageSelect');
+        const option = document.createElement('option');
+        option.value = packageId;
+        option.textContent = `${packageId} - ${luggage}`;
+        packageSelect.appendChild(option);
 
         document.getElementById('packageForm').reset();
     } else {
@@ -102,34 +105,205 @@ function addPackage() {
 }
 
 function editPackage(button) {
-    editRow = button.parentElement.parentElement;
-    document.getElementById('userName').value = editRow.cells[0].textContent;
-    document.getElementById('orderDate').value = editRow.cells[1].textContent;
-    document.getElementById('orderStatus').value = editRow.cells[2].textContent;
+    editPackageRow = button.parentElement.parentElement;
+    document.getElementById('packageId').value = editPackageRow.cells[0].textContent;
+    document.getElementById('luggage').value = editPackageRow.cells[1].textContent;
 }
 
 function updatePackage() {
-    const userName = document.getElementById('userName').value;
-    const orderDate = document.getElementById('orderDate').value;
-    const orderStatus = document.getElementById('orderStatus').value;
+    const packageId = document.getElementById('packageId').value;
+    const luggage = document.getElementById('luggage').value;
 
-    if (userName && orderDate && orderStatus) {
-        editRow.cells[0].textContent = userName;
-        editRow.cells[1].textContent = orderDate;
-        editRow.cells[2].innerHTML = `<span class="status ${orderStatus.toLowerCase()}">${orderStatus}</span>`;
-        editRow.cells[3].innerHTML = `<button onclick="editPackage(this)">Edit</button> <button onclick="removePackage(this)">Remove</button>`;
+    if (packageId && luggage) {
+        editPackageRow.cells[0].textContent = packageId;
+        editPackageRow.cells[1].textContent = luggage;
+
+        // Update the dropdown in the order form
+        const packageSelect = document.getElementById('packageSelect');
+        const options = packageSelect.options;
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value === editPackageRow.cells[0].textContent) {
+                options[i].textContent = `${packageId} - ${luggage}`;
+                break;
+            }
+        }
 
         document.getElementById('packageForm').reset();
-        editRow = null;
+        editPackageRow = null;
     } else {
         alert("Please fill in all fields.");
     }
 }
 
 function removePackage(button) {
-    button.parentElement.parentElement.remove();
-    if (editRow === button.parentElement.parentElement) {
-        document.getElementById('packageForm').reset();
-        editRow = null;
+    const row = button.parentElement.parentElement;
+    const packageId = row.cells[0].textContent;
+
+    // Remove from the dropdown in the order form
+    const packageSelect = document.getElementById('packageSelect');
+    const options = packageSelect.options;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value === packageId) {
+            packageSelect.remove(i);
+            break;
+        }
     }
+
+    row.remove();
+    if (editPackageRow === row) {
+        document.getElementById('packageForm').reset();
+        editPackageRow = null;
+    }
+}
+
+function formatDatetime(datetime) {
+    // Split the datetime string into date and time parts
+    const [date, time] = datetime.split('T: ');
+    return `${date} ${time}`; // Add a space between the date and time
+}
+
+function addOrder() {
+    const packageId = document.getElementById('packageSelect').value;
+    const arrivalTime = document.getElementById('arrivalTime').value;
+    const pickupTime = document.getElementById('pickupTime').value;
+
+    if (packageId && arrivalTime && pickupTime) {
+        const orderTable = document.getElementById('orderTable').getElementsByTagName('tbody')[0];
+        const newRow = orderTable.insertRow();
+
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+        const cell3 = newRow.insertCell(2);
+        const cell4 = newRow.insertCell(3);
+
+        cell1.textContent = packageId;
+        cell2.textContent = formatDatetime(arrivalTime); // Format the arrival time
+        cell3.textContent = formatDatetime(pickupTime); // Format the pickup time
+        cell4.innerHTML = `<button class="edit" onclick="editOrder(this)">Edit</button> 
+                           <button class="remove" onclick="removeOrder(this)">Remove</button>`;
+
+        // Add to history table
+        const luggage = document.getElementById('packageSelect').options[document.getElementById('packageSelect').selectedIndex].text.split(' - ')[1];
+        addHistory(packageId, luggage, formatDatetime(arrivalTime), formatDatetime(pickupTime));
+
+        document.getElementById('orderForm').reset();
+    } else {
+        alert("Please fill in all fields.");
+    }
+}
+
+function editOrder(button) {
+    editOrderRow = button.parentElement.parentElement;
+    document.getElementById('packageSelect').value = editOrderRow.cells[0].textContent;
+    document.getElementById('arrivalTime').value = editOrderRow.cells[1].textContent;
+    document.getElementById('pickupTime').value = editOrderRow.cells[2].textContent;
+}
+
+function updateOrder() {
+    const packageId = document.getElementById('packageSelect').value;
+    const arrivalTime = document.getElementById('arrivalTime').value;
+    const pickupTime = document.getElementById('pickupTime').value;
+
+    if (packageId && arrivalTime && pickupTime) {
+        editOrderRow.cells[0].textContent = packageId;
+        editOrderRow.cells[1].textContent = arrivalTime;
+        editOrderRow.cells[2].textContent = pickupTime;
+
+        document.getElementById('orderForm').reset();
+        editOrderRow = null;
+    } else {
+        alert("Please fill in all fields.");
+    }
+}
+
+function removeOrder(button) {
+    const row = button.parentElement.parentElement;
+    row.remove();
+    if (editOrderRow === row) {
+        document.getElementById('orderForm').reset();
+        editOrderRow = null;
+    }
+}
+
+function addHistory(packageId, luggage, arrivalTime, pickupTime) {
+    const historyTable = document.getElementById('historyTable').getElementsByTagName('tbody')[0];
+    const newRow = historyTable.insertRow();
+
+    const cell1 = newRow.insertCell(0);
+    const cell2 = newRow.insertCell(1);
+    const cell3 = newRow.insertCell(2);
+    const cell4 = newRow.insertCell(3);
+    const cell5 = newRow.insertCell(4);
+
+    cell1.textContent = packageId;
+    cell2.textContent = luggage;
+    cell3.textContent = arrivalTime;
+    cell4.textContent = pickupTime;
+    cell5.innerHTML = `
+        <button class="details" onclick="viewDetails('${packageId}', '${luggage}', '${arrivalTime}', '${pickupTime}')">Details</button>
+        <button class="invoice" onclick="printInvoice('${packageId}', '${luggage}', '${arrivalTime}', '${pickupTime}')">Download/Print Invoice</button>
+    `;
+}
+
+function viewDetails(packageId, luggage, arrivalTime, pickupTime) {
+    alert(`
+        Package Details:
+        - Package ID: ${packageId}
+        - Luggage: ${luggage}
+        - Arrival Time: ${arrivalTime}
+        - Pickup Time: ${pickupTime}
+    `);
+}
+
+function printInvoice(packageId, luggage, arrivalTime, pickupTime) {
+    const invoiceWindow = window.open('', '_blank');
+    invoiceWindow.document.write(`
+        <html>
+            <head>
+                <title>Invoice</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 20px; }
+                    h1 { color: var(--blue); }
+                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                    table, th, td { border: 1px solid black; }
+                    th, td { padding: 10px; text-align: left; }
+                </style>
+            </head>
+            <body>
+                <h1>Invoice</h1>
+                <p><strong>Package ID:</strong> ${packageId}</p>
+                <p><strong>Luggage:</strong> ${luggage}</p>
+                <p><strong>Arrival Time:</strong> ${arrivalTime}</p>
+                <p><strong>Pickup Time:</strong> ${pickupTime}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Package ID</td>
+                            <td>${packageId}</td>
+                        </tr>
+                        <tr>
+                            <td>Luggage</td>
+                            <td>${luggage}</td>
+                        </tr>
+                        <tr>
+                            <td>Arrival Time</td>
+                            <td>${arrivalTime}</td>
+                        </tr>
+                        <tr>
+                            <td>Pickup Time</td>
+                            <td>${pickupTime}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button onclick="window.print()">Print</button>
+            </body>
+        </html>
+    `);
+    invoiceWindow.document.close();
 }

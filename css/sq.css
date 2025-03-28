@@ -27,6 +27,12 @@ li {
     --light-yellow: #fff2c6;
     --orange: #FD7238;
     --light-orange: #FFE0D3;
+	--green: #4CAF50;
+	--light-green: #DFF0D8;
+	--grey: #f5f5f5;
+	--dark-grey: #a9a9a9;
+	--light-grey: #f9f9f9;
+	--dark-blue: #2c3e50;
 }
 
 body{
@@ -332,7 +338,6 @@ body{
 
 
 
-
 #content main .box-info {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -461,6 +466,7 @@ body{
 
 .package-form {
     margin-top: 20px;
+    margin-bottom: 20px; /* Add space below the package form */
 }
 
 .package-form form {
@@ -476,13 +482,17 @@ body{
 
 .package-form button {
     background-color: var(--blue);
-    color: var(--dark-blue);
+    color: var(--light);
     border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .package-form button:hover {
-    background-color: var(--dark-blue);
+    background-color: var(--grey);
+    color: var(--dark);
 }
 
 .table-data .order table th, .table-data .order table td {
@@ -523,6 +533,237 @@ body{
     opacity: 0.8;
 }
 
+/* Style for "Package ID" and "User Name" inputs */
+.package-form input {
+    border-radius: 10px; /* Rounded corners */
+    background-color: var(--grey); /* Background color */
+    border: 1px solid var(--grey); /* Border color */
+    padding: 10px;
+    color: var(--dark); /* Text color */
+    outline: none;
+    width: 100%; /* Full width */
+    box-sizing: border-box;
+}
+
+/* Style for "Select Package" dropdown and date inputs */
+.order-form select,
+.order-form input[type="datetime-local"] {
+    border-radius: 10px; /* Rounded corners */
+    background-color: var(--grey); /* Background color */
+    border: 1px solid var(--grey); /* Border color */
+    padding: 10px;
+    color: var(--dark); /* Text color */
+    outline: none;
+    width: 100%; /* Full width */
+    box-sizing: border-box;
+}
+
+/* Add spacing between "Select Package" and the date inputs */
+.order-form select,
+.order-form input[type="datetime-local"] {
+    display: block; /* Ensure elements are stacked vertically */
+    width: 100%; /* Full width */
+    margin-bottom: 15px; /* Add space below each element */
+    padding: 10px;
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid var(--grey); /* Border color */
+    background-color: var(--light); /* Background color */
+    color: var(--dark); /* Text color */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Style for "Edit" button */
+.table-data .order table td button.edit,
+.table-data .package table td button.edit {
+    background-color: var(--blue); /* Blue background */
+    color: var(--light); /* Light text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.table-data .order table td button.edit:hover,
+.table-data .package table td button.edit:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Ensure text remains visible */
+}
+
+/* Style for "Remove" button */
+.table-data .order table td button.remove,
+.table-data .package table td button.remove {
+    background-color: var(--red); /* Red background */
+    color: var(--light); /* Light text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.table-data .order table td button.remove:hover,
+.table-data .package table td button.remove:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Ensure text remains visible */
+}
+
+/* General button styling for actions */
+.table-data .package table td button,
+.table-data .order table td button {
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px; /* Adjust font size */
+    transition: background-color 0.3s ease, color 0.3s ease;
+margin-top: 10px; /* Add space to the right of each button */
+}
+
+.table-data .package table td button:last-child,
+.table-data .order table td button:last-child {
+    margin-bottom: 10px; /* Remove margin for the last button */
+}
+
+/* Specific styling for "Edit" button */
+.table-data .package table td button.edit,
+.table-data .order table td button.edit {
+    background-color: var(--blue); /* Blue background */
+    color: var(--light); /* Light text color */
+}
+
+.table-data .package table td button.edit:hover,
+.table-data .order table td button.edit:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--black); /* Black text color on hover */
+}
+
+/* Specific styling for "Remove" button */
+.table-data .package table td button.remove,
+.table-data .order table td button.remove {
+    background-color: var(--red); /* Red background */
+    color: var(--light); /* Light text color */
+}
+
+.table-data .package table td button.remove:hover,
+.table-data .order table td button.remove:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--black); /* Black text color on hover */
+}
+
+/* Add spacing between "Edit" and "Remove" buttons */
+.table-data .package table td button,
+.table-data .order table td button {
+    margin-right: 10px; /* Add space to the right of each button */
+}
+
+.table-data .package table td button:last-child,
+.table-data .order table td button:last-child {
+    margin-right: 0; /* Remove margin for the last button */
+}
+
+/* General button styling for actions in the Packages table */
+.table-data .package table td button {
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px; /* Adjust font size */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Specific styling for "Edit" button in Packages table */
+.table-data .package table td button.edit {
+    background-color: var(--blue); /* Blue background */
+    color: var(--light); /* Light text color */
+}
+
+.table-data .package table td button.edit:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--black); /* Black text color on hover */
+}
+
+/* Specific styling for "Remove" button in Packages table */
+.table-data .package table td button.remove {
+    background-color: var(--red); /* Red background */
+    color: var(--light); /* Light text color */
+}
+
+.table-data .package table td button.remove:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--black); /* Black text color on hover */
+}
+
+/* Add spacing between "Edit" and "Remove" buttons in Packages table */
+.table-data .package table td button {
+    margin-top: 10px; /* Add space to the top of each button */
+}
+
+.table-data .package table td button:last-child {
+    margin-bottom: 10px; /* Remove margin for the last button */
+}
+
+/* Style for "Add Order" button */
+.order-form {
+    margin-top: 20px; /* Optional: Add space above the order form */
+}
+
+.order-form button {
+    background-color: var(--green); /* Green background */
+    color: var(--light); /* Light text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.order-form button:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Ensure text remains visible */
+}
+
+/* Background for "Dashboard," "Add New Package," and "Add New Order" */
+.head-title,
+.package-form,
+.order-form {
+    background-color: var(--light); /* Light background */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for better appearance */
+}
+
+/* Style for the package table headers and cells */
+#packageTable th,
+#packageTable td {
+    padding: 12px 16px; /* Add padding for spacing */
+    text-align: left; /* Align text to the left */
+}
+
+#packageTable th {
+    background-color: var(--light); /* Light background for headers */
+    font-weight: 600; /* Make headers bold */
+    border-bottom: 2px solid var(--grey); /* Add a border below headers */
+}
+
+#packageTable td {
+    border-bottom: 1px solid var(--grey); /* Add a border below rows */
+}
+
+/* Add spacing between columns */
+#packageTable td:first-child {
+    width: 30%; /* Adjust width for "Package ID" */
+}
+
+#packageTable td:nth-child(2) {
+    width: 40%; /* Adjust width for "Luggage" */
+}
+
+#packageTable td:last-child {
+    width: 30%; /* Adjust width for "Actions" */
+    text-align: center; /* Center-align the action buttons */
+}
+
 #content main .table-data .todo {
 	flex-grow: 1;
 	flex-basis: 300px;
@@ -552,7 +793,162 @@ body{
 #content main .table-data .todo .todo-list li:last-child {
 	margin-bottom: 0;
 }
+
+/* Style for the history table */
+.table-data .history {
+    flex-grow: 1;
+    flex-basis: 100%;
+    margin-top: 20px;
+}
+
+.table-data .history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-data .history table th,
+.table-data .history table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--grey);
+}
+
+.table-data .history table th {
+    background-color: var(--light);
+    font-weight: 600;
+}
+
+.table-data .history table tbody tr:hover {
+    background-color: var(--grey);
+}
+
+/* Style for buttons in the history table */
+.table-data .history table td button {
+    background-color: var(--blue); /* Blue background */
+    color: var(--light); /* Light text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-right: 10px; /* Add spacing between buttons */
+}
+
+.table-data .history table td button:last-child {
+    margin-right: 0; /* Remove margin for the last button */
+}
+
+.table-data .history table td button:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Dark text color on hover */
+
 /*Main Content*/
+
+/* General button styling */
+button {
+    background-color: var(--light); /* Default background color */
+    color: var(--dark); /* Default text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Dark text color on hover */
+}
+
+/* Specific styling for "Edit" button */
+button.edit {
+    background-color: var(--blue); /* Blue background */
+    color: var(--light); /* Light text color */
+}
+
+button.edit:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Dark text color on hover */
+}
+
+/* Specific styling for "Remove" button */
+button.remove {
+    background-color: var(--red); /* Red background */
+    color: var(--light); /* Light text color */
+}
+
+button.remove:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Dark text color on hover */
+}
+
+/* Specific styling for "Add Package" button */
+.package-form button {
+    background-color: var(--blue); /* Blue background */
+    color: var(--light); /* Light text color */
+}
+
+.package-form button:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Dark text color on hover */
+}
+
+/* Specific styling for "Add Order" button */
+.order-form button {
+    background-color: var(--green); /* Green background */
+    color: var(--light); /* Light text color */
+}
+
+.order-form button:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Dark text color on hover */
+
+/* General button styling for actions in both Packages and Orders tables */
+.table-data .package table td button,
+.table-data .order table td button {
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px; /* Adjust font size */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Specific styling for "Edit" button */
+.table-data .package table td button.edit,
+.table-data .order table td button.edit {
+    background-color: var(--blue); /* Blue background */
+    color: var(--light); /* Light text color */
+}
+
+.table-data .package table td button.edit:hover,
+.table-data .order table td button.edit:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Black text color on hover */
+}
+
+/* Specific styling for "Remove" button */
+.table-data .package table td button.remove,
+.table-data .order table td button.remove {
+    background-color: var(--red); /* Red background */
+    color: var(--light); /* Light text color */
+}
+
+.table-data .package table td button.remove:hover,
+.table-data .order table td button.remove:hover {
+    background-color: var(--grey); /* Gray background on hover */
+    color: var(--dark); /* Black text color on hover */
+}
+
+/* Add spacing between "Edit" and "Remove" buttons */
+.table-data .package table td button,
+.table-data .order table td button {
+    margin-right: 10px; /* Add space to the right of each button */
+}
+
+.table-data .package table td button:last-child,
+.table-data .order table td button:last-child {
+    margin-right: 0; /* Remove margin for the last button */
 
 /*content*/
 @media screen and (max-width: 768px) {
@@ -608,15 +1004,8 @@ body{
 	#content main .box-info {
 		grid-template-columns: 1fr;
 	}
-
-	#content main .table-data .head {
-		min-width: 420px;
-	}
-	#content main .table-data .order table {
-		min-width: 420px;
-	}
-	#content main .table-data .todo .todo-list {
-		min-width: 420px;
+}
+}
 	}
 }
 /*content*/

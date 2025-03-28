@@ -12,43 +12,43 @@
 <body>
     <!--sidebar-->
     <section id="sidebar">
-        <a href="dashboard.html" class="brand">
+        <a href="/html/sq.html" class="brand">
             <i class='bx bxs-heart-circle'></i>
             <span class="text">Admin Hub</span>
         </a>
         <ul class="side-menu top">
             <li class="active">
-                <a href="dashboard.html">
+                <a href="#Dashboard">
                     <i class='bx bxs-dashboard'></i>
                     <span class="text">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="history.html">
+                <a href="#History">
                     <i class='bx bx-history'></i>
                     <span class="text">History</span>
                 </a>
             </li>
             <li>
-                <a href="package.html">
+                <a href="#Package">
                     <i class='bx bxs-package'></i>
                     <span class="text">Package</span>
                 </a>
             </li>
             <li>
-                <a href="order.html">
+                <a href="#Order">
                     <i class='bx bx-package'></i>
                     <span class="text">Order</span>
                 </a>
             </li>
             <li>
-                <a href="admin-settings.html">
+                <a href="#">
                     <i class='bx bxs-cog'></i>
                     <span class="text">Admin Settings</span>
                 </a>
             </li>
             <li>
-                <a href="logout.html" class="logout">
+                <a href="#" class="logout"> <!-- redirect this to the login page -->
                     <i class='bx bxs-log-out-circle'></i>
                     <span class="text">Log Out</span>
                 </a>
@@ -71,8 +71,6 @@
                         <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
                     </div>
                 </form>
-                <input type="checkbox" id="switch-mode" hidden>
-                <label for="switch-mode" class="switch-mode"></label>
                 <a href="#" class="profile">
                     <img src="https://cdn.vectorstock.com/i/preview-1x/63/42/avatar-photo-placeholder-icon-design-vector-30916342.jpg">
                 </a>
@@ -83,138 +81,97 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Dashboard</h1>
+                    <h1 id="Dashboard">Dashboard</h1>
                     <ul class="breadcrumb">
                         <li>
                             <a href="#">Dashboard</a>
                         </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="#">Home</a>
-                        </li>
                     </ul>
-                </div>
-                <a href="#" class="btn-download">
-                    <i class='bx bxs-cloud-download'></i>
-                    <span class="text">Download PDF</span>
-                </a>
-            </div>
-
-            <ul class="box-info">
-                <li>
-                    <i class='bx bxs-calendar-check'></i>
-                    <span class="text">
-                        <h3>1020</h3>
-                        <p>New Order</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-group'></i>
-                    <span class="text">
-                        <h3>2834</h3>
-                        <p>Visitors</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-dollar-circle'></i>
-                    <span class="text">
-                        <h3>$2543</h3>
-                        <p>Total Sales</p>
-                    </span>
-                </li>
-            </ul>
-
-            <div class="table-data">
-                <div class="order">
-                    <div class="head">
-                        <h3>Recent Orders</h3>
-                        <i class='bx bx-search'></i>
-                        <i class='bx bx-filter'></i>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Date Order</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status completed">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status process">Process</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status completed">Completed</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
 
             <div class="package-form">
-                <h3>Add New Package/Order</h3>
+                <h3 id="Package">Add New Package</h3>
                 <form id="packageForm">
-                    <input type="text" id="userName" placeholder="User Name" required>
-                    <input type="date" id="orderDate" required>
-                    <select id="orderStatus" required>
-                        <option value="Completed">Completed</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Process">Process</option>
+                    <input type="text" id="packageId" placeholder="Package ID" required>
+                    <input type="text" id="luggage" placeholder="Luggage" required>
+                    <button type="submit">Add Package</button>
+                </form>
+            </div>
+
+            <div class="order-form">
+                <h3 id="Order">Add New Order</h3>
+                <form id="orderForm">
+                    <select id="packageSelect" required>
+                        <option value="" disabled selected>Select Package</option>
                     </select>
-                    <button type="submit">Add</button>
+                    
+                    <!-- Description for Arrival Time -->
+                    <label for="arrivalTime">Package Arrival</label>
+                    <input type="datetime-local" id="arrivalTime" placeholder="Arrival Time" required>
+                    
+                    <!-- Description for Pickup Time -->
+                    <label for="pickupTime">Pickup Arrival</label>
+                    <input type="datetime-local" id="pickupTime" placeholder="Pickup Time" required>
+                    
+                    <button type="submit">Add Order</button>
                 </form>
             </div>
 
             <div class="table-data">
-                <div class="order">
+                <div class="package">
                     <div class="head">
-                        <h3>Packages/Orders</h3>
+                        <h3>Packages</h3>
                     </div>
-                    <table id="orderTable">
+                    <table id="packageTable">
                         <thead>
                             <tr>
-                                <th>User</th>
-                                <th>Date Order</th>
-                                <th>Status</th>
+                                <th>Package ID</th>
+                                <th>luggage</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Rows will be added here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="order">
+                    <div class="head">
+                        <h3>Orders</h3>
+                    </div>
+                    <table id="orderTable">
+                        <thead>
+                            <tr>
+                                <th>Package ID</th>
+                                <th>Arrival Time</th>
+                                <th>Pickup Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="history">
+                    <div class="head">
+                        <h3 id="History">History</h3>
+                    </div>
+                    <table id="historyTable">
+                        <thead>
+                            <tr>
+                                <th>Package ID</th>
+                                <th>Luggage</th>
+                                <th>Arrival Time</th>
+                                <th>Pickup Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically -->
                         </tbody>
                     </table>
                 </div>
